@@ -2,12 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import {createBrowserRouter, createRoutesFromElements,Route,RouterProvider} from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+import ToDoList from './Component/ToDoList';
+import Increment from './Component/Increment';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<App/>}>
+      <Route  index ={true} path='/' element={<Increment/>}/>
+
+      <Route path='/todolist' element={<ToDoList/>} />
+     
+
+    </Route>
+  )
+)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 
