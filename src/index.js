@@ -12,8 +12,8 @@ import Increment from './Component/Increment';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
-      <Route  index ={true} path='/' element={<Increment/>}/>
 
+      <Route  index ={true} path='/' element={<Increment/>}/>
       <Route path='/todolist' element={<ToDoList/>} />
      
 

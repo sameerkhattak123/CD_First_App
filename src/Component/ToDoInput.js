@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
-
+import { Input, Button, Dropdown, Menu } from 'antd';
 
 function ToDoInput(props) {
-    const [inputText,setInputText] = useState('');
+    const [inputText, setInputText] = useState('');
 
-  return (
-    <div className="d-flex justify-content-center align-items-center mt-5">
-      <div className="input-group" style={{ maxWidth: '400px' }}>
-        <input value={inputText} type="text" className="form-control" placeholder="Enter your todo here..." onChange={e =>{
-            setInputText(e.target.value)
-        }} />
-        <div className="input-group-append">
-          <button className="btn btn-primary" type="button" 
-          onClick={()=>
-            {props.addList(inputText)
-                setInputText("")
-            }
-          } >Add Todo</button>
+    return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '50px' }}>
+            <Input
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder="Enter your todo here..."
+                style={{ maxWidth: '400px' }}
+            />
+            <Button
+                type="primary"
+                onClick={() => {
+                    props.addList({ text: inputText, status: 'pending', createdAt: new Date() });
+                    setInputText('');
+                }}
+                style={{ marginLeft: '10px' }}
+            >
+                Add Todo
+            </Button>
         </div>
-      </div>
-     
-    </div>
-  );
+    );
 }
 
 export default ToDoInput;

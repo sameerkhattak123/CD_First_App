@@ -1,22 +1,20 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
+
+const { Header } = Layout;
 
 function CustomNavbar() {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-        <Link className="nav-link" to ='/'>
-      <Navbar.Brand >Home</Navbar.Brand>
-      </Link>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-          <Link to='/todolist' className="nav-link">To Do List</Link>
-          <Link to='/Contact' className="nav-link">Contact</Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+      <div className="logo" />
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+        <Menu.Item key="1"><Link to='/'>Home</Link></Menu.Item>
+        <Menu.Item key="2"><Link to='/todolist'>To Do List</Link></Menu.Item>
+        <Menu.Item key="3"><Link to='/contact'>Contact</Link></Menu.Item>
+      </Menu>
+    </Header>
+    
   );
 }
 
