@@ -7,7 +7,9 @@ import Increment from "./Component/Increment";
 import Navbar from "./Component/Navbar";
 const { Content } = Layout;
 
+
 function App() {
+  
   return (
     <Layout>
     <Navbar />

@@ -8,15 +8,25 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 import ToDoList from './Component/ToDoList';
 import Increment from './Component/Increment';
+import Login from './Component/Login';
+import Register from './Component/Register';
+import { AuthContextProvider } from './Context/AuthContext';
+import { EmployeeContextProvider } from './Context/EmployeeContext';
+import Signup from './Component/Signup';
+import EmployeeItem from './Component/EmployeeItem';
+import ProtectedRoute from './Protected/protectedRoute';
+import UnprotectedRoute from './Protected/unProtectedRoute';
 
 const router = createBrowserRouter(
+  
+
   createRoutesFromElements(
-    <Route path='/' element={<App/>}>
-
-      <Route  index ={true} path='/' element={<Increment/>}/>
-      <Route path='/todolist' element={<ToDoList/>} />
-     
-
+    <Route path='/' element={<App />}>
+      <Route index={true} path='/' element={<Increment />} />
+      <Route path='/todolist' element={<ToDoList />}  />
+      <Route path='/login' element={<UnprotectedRoute element={<Login />} />} />
+      <Route path='/register' element={<UnprotectedRoute element={<Signup />} />} />
+      <Route path='/employee' element={<ProtectedRoute element={<EmployeeItem />} />} />
     </Route>
   )
 )
@@ -24,7 +34,11 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <AuthContextProvider>
+      <EmployeeContextProvider>
     <RouterProvider router={router}/>
+    </EmployeeContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 
