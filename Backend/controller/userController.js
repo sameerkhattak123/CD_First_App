@@ -1,14 +1,19 @@
 
+const RefreshToken = require('../models/refreshTokenModel');
+
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, {expiresIn: '1d'});
 }
-const createRefreshToken = (_id) =>{
-    return jwt.sign({_id},process.env.REFREST_SECRET,{expiresIn: '2d'});
-}
-
+const createRefreshToken = (userId) => {
+    const token = jwt.sign({ userId }, process.env.REFRESH_SECRET, { expiresIn: '7d' });
+    const expiryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  
+    return new RefreshToken({ token, userId, expiryDate }).save(); 
+  };
+  
 
 const loginUser = async (req,res)=>{
 
@@ -19,8 +24,9 @@ const loginUser = async (req,res)=>{
         const user = await User.login(email,password)
 
         const token = createToken(user._id)
+        const refreshToken = await createRefreshToken(user._id);
         
-        res.status(200).json({email,token})
+        res.status(200).json({email,token,refreshToken: refreshToken.token})
     } catch (error) {
         res.status(400).json({error: error.message});
     }
@@ -28,19 +34,50 @@ const loginUser = async (req,res)=>{
 
 const signupUser = async (req, res) => {
     const { userName, email, password } = req.body;
-
+  
     try {
-        const user = await User.signup(userName, email, password);
-        
-        const token = createToken(user._id);
-        console.log(token);
-          res.status(200).json({ userName, email, token });
+      const user = await User.signup(userName, email, password);
       
+      const token = createToken(user._id);
+      const refreshToken = await createRefreshToken(user._id);
+  
+      res.status(200).json({ userName, email, token, refreshToken: refreshToken.token });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+      res.status(400).json({ error: error.message });
     }
-};
+  };
+  
+  const refreshToken = async (req, res) => {
+    const { token } = req.body;
+  
+    if (!token) {
+      return res.status(401).json({ error: 'Refresh token required' });
+    }
+  
+    try {
+      const { userId } = jwt.verify(token, process.env.REFRESH_SECRET);
+      const storedToken = await RefreshToken.findOne({ token });
+      
+
+      if (!storedToken || storedToken.userId.toString() !== userId) {
+        return res.status(401).json({ error: 'Invalid refresh token' });
+      }
+  
+      const newToken = createToken(userId);
+      
+      const newRefreshToken = await createRefreshToken(userId);
+      console.log('token',newRefreshToken.token)
+    
+      debugger
+      await storedToken.delete();
+      
+  
+      res.status(200).json({ token: newToken, refreshToken: newRefreshToken.token });
+    } catch (error) {
+      res.status(401).json({ error: 'Invalid refresh token' });
+    }
+  };
 
 
 
-module.exports = { loginUser,signupUser}
+module.exports = { loginUser,signupUser,refreshToken}

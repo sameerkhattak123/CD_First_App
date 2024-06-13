@@ -14,8 +14,15 @@ import { AuthContextProvider } from './Context/AuthContext';
 import { EmployeeContextProvider } from './Context/EmployeeContext';
 import Signup from './Component/Signup';
 import EmployeeItem from './Component/EmployeeItem';
+import ReduxEmployeeItem from './Component/Employee/EmployeeItem';
 import ProtectedRoute from './Protected/protectedRoute';
 import UnprotectedRoute from './Protected/unProtectedRoute';
+
+import { Provider } from 'react-redux'
+import { store } from './Redux/store';
+import AmountDisplay from './Component/AmountDisplay';
+import TodoItem from './Component/ToDo/TodoItem';
+import TodoList from './Component/ToDo/Todolist';
 
 const router = createBrowserRouter(
   
@@ -24,9 +31,12 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<Increment />} />
       <Route path='/todolist' element={<ToDoList />}  />
+      <Route path='/reduxtodolist' element={<TodoList />}   />
       <Route path='/login' element={<UnprotectedRoute element={<Login />} />} />
+      <Route path='/amountwithdraw' element={<AmountDisplay />}  />
       <Route path='/register' element={<UnprotectedRoute element={<Signup />} />} />
       <Route path='/employee' element={<ProtectedRoute element={<EmployeeItem />} />} />
+      <Route path='/reduxemployee' element={<ProtectedRoute element={<ReduxEmployeeItem />} />} />
     </Route>
   )
 )
@@ -34,11 +44,13 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <AuthContextProvider>
       <EmployeeContextProvider>
     <RouterProvider router={router}/>
     </EmployeeContextProvider>
     </AuthContextProvider>
+    </Provider>
   </React.StrictMode>
 );
 

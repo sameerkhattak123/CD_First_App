@@ -7,7 +7,8 @@ const { Title } = Typography;
 
 function ToDoList() {
     const [doList, setDoList] = useState([]);
-    const [filteredStatus, setFilteredStatus] = useState('all');
+    const [filteredStatus, setFilteredStatus] = useState('all')
+    console.log('list');
 
     const addList = (todo) => {
         setDoList([...doList, todo]);

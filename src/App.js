@@ -5,11 +5,12 @@ import { Layout } from 'antd';
 import './App.css';
 import Increment from "./Component/Increment";
 import Navbar from "./Component/Navbar";
+import { useAutoRefreshToken } from "./Hook/useAutoRefreshToken";
 const { Content } = Layout;
 
 
-function App() {
-  
+const App=()=>{
+    useAutoRefreshToken();
   return (
     <Layout>
     <Navbar />

@@ -10,6 +10,7 @@ const { Text } = Typography;
 function CustomNavbar() {
   const { user } = useAuthContext();
   const { logout } = useLogout();
+  console.log('navbar')
 
   const handleLogout = () => {
     logout();
@@ -22,6 +23,9 @@ function CustomNavbar() {
         <Menu.Item key="1"><Link to='/'>Home</Link></Menu.Item>
         <Menu.Item key="2"><Link to='/todolist'>To Do List</Link></Menu.Item>
         {user && <Menu.Item key="3"><Link to='/employee'>Employee</Link></Menu.Item>}
+        <Menu.Item key="4"><Link to='/amountwithdraw'>Amount withdraw</Link></Menu.Item>
+        <Menu.Item key="5"><Link to='/reduxtodolist'>Redux to DO List </Link></Menu.Item>
+        {user && <Menu.Item key="6"><Link to='reduxemployee'>Redux Employee</Link></Menu.Item>}
       </Menu>
       <div>
         {!user ? (

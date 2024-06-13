@@ -12,6 +12,7 @@ const EmployeeItem = ({ onDelete }) => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [employeeVisible, setEmployeeVisible] = useState(false);
   const { user } = useAuthContext();
+  console.log('uSER')
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -35,7 +36,7 @@ const EmployeeItem = ({ onDelete }) => {
     };
 
     fetchEmployees();
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   const fetchEmployeeById = async (id) => {
     try {
