@@ -25,12 +25,22 @@ const loginUser = async (req,res)=>{
 
         const token = createToken(user._id)
         const refreshToken = await createRefreshToken(user._id);
-        
-        res.status(200).json({email,token,refreshToken: refreshToken.token})
+        res.status(200).json({email,role :user.role,token,refreshToken: refreshToken.token})
     } catch (error) {
         res.status(400).json({error: error.message});
     }
 }
+
+// Get all users with the role 'user'
+const getAllUsersWithRoleUser = async (req, res) => {
+    try {
+        const users = await User.find({ role: 'user' }).select('-password');
+        res.status(200).json(users);
+    } catch (error) {
+        console.error('Error getting users with role user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
 
 const signupUser = async (req, res) => {
     const { userName, email, password } = req.body;
@@ -80,4 +90,4 @@ const signupUser = async (req, res) => {
 
 
 
-module.exports = { loginUser,signupUser,refreshToken}
+module.exports = { loginUser,signupUser,refreshToken,getAllUsersWithRoleUser}

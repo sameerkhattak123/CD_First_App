@@ -23,7 +23,7 @@ const TodoList = () => {
 
     useEffect(() => {
         dispatch(fetchEmployees(user.token));
-    }, [dispatch]);
+    }, [dispatch, user.token]);
 
     const todos = useSelector(state => state.todos.todos) || [];
 
@@ -69,26 +69,55 @@ const TodoList = () => {
         dispatch(todoActionCreators.deleteTodo(id));
     };
 
+    const uniqueAssignments = [...new Set(todos.map(todo => todo.assignment).filter(Boolean))];
+    const assignmentFilters = [
+        ...uniqueAssignments.map(assignment => ({
+            text: assignment,
+            value: assignment,
+        })),
+        { text: 'Not Assigned', value: '' }  // Filter option for empty assignments
+    ];
+
+
+
+
     const columns = [
         {
             title: 'Title',
             dataIndex: 'title',
             key: 'title',
+            sorter: (a, b) => a.title.localeCompare(b.title),
         },
         {
             title: 'Created Date',
             dataIndex: 'date',
             key: 'date',
+            sorter: (a, b) => new Date(a.date) - new Date(b.date),
         },
         {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
+            filters: [
+                { text: 'Pending', value: 'Pending' },
+                { text: 'Complete', value: 'Complete' },
+                { text: 'Rejected', value: 'Rejected' },
+            ],
+            onFilter: (value, record) => record.status.includes(value),
+            sorter: (a, b) => a.status.localeCompare(b.status),
+            showSorterTooltip: {
+                target: 'sorter-icon',
+            },
         },
         {
-            title: 'Assignment',
+            title: 'Assigned',
             dataIndex: 'assignment',
             key: 'assignment',
+            filters: assignmentFilters,
+            onFilter: (value, record) => value === '' ? !record.assignment : record.assignment === value,
+            sorter: (a, b) => a.assignment.localeCompare(b.assignment),
+
+            
         },
         {
             title: 'Action',
@@ -110,6 +139,10 @@ const TodoList = () => {
             ),
         },
     ];
+
+    const onChange = (pagination, filters, sorter, extra) => {
+        console.log('params', pagination, filters, sorter, extra);
+    };
 
     return (
         <div style={{ width: '60%', margin: 'auto', padding: '20px' }}>
@@ -134,6 +167,10 @@ const TodoList = () => {
                 rowKey="id"
                 bordered
                 style={{ textAlign: 'center' }}
+                onChange={onChange}
+                showSorterTooltip={{
+                    target: 'sorter-icon',
+                }}
             />
             <Modal
                 title="Edit To-Do"
@@ -177,4 +214,3 @@ const TodoList = () => {
 };
 
 export default TodoList;
-

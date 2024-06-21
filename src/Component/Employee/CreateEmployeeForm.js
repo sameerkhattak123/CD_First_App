@@ -5,6 +5,7 @@ import { createEmployee } from '../../Redux/Action/employeeAction'; // Updated i
 import { useAuthContext } from '../../Hook/useAuthContext';
 
 const CreateEmployeeForm = () => {
+  const [form] = Form.useForm(); 
   const dispatch = useDispatch();
   const loading = useSelector(state => state.loading); // Get loading state from Redux store
   const { user } = useAuthContext();
@@ -13,6 +14,7 @@ const CreateEmployeeForm = () => {
     try {
       dispatch(createEmployee(formValues,user.token)); // Dispatch create employee action
       message.success('Employee created successfully');
+      form.resetFields(); 
     } catch (error) {
       console.error('Error creating employee:', error.message);
       message.error(error.message || 'Failed to create employee');
@@ -24,6 +26,7 @@ const CreateEmployeeForm = () => {
       name="createEmployee"
       layout="vertical"
       onFinish={onFinish}
+      form={form}
     >
       <Form.Item
         name="name"

@@ -17,12 +17,15 @@ import EmployeeItem from './Component/EmployeeItem';
 import ReduxEmployeeItem from './Component/Employee/EmployeeItem';
 import ProtectedRoute from './Protected/protectedRoute';
 import UnprotectedRoute from './Protected/unProtectedRoute';
+import AdminProtectedRoute from './Protected/adminProtectedRoute';
 
 import { Provider } from 'react-redux'
 import { store } from './Redux/store';
 import AmountDisplay from './Component/AmountDisplay';
 import TodoItem from './Component/ToDo/TodoItem';
 import TodoList from './Component/ToDo/Todolist';
+import AddRoleForm from './Component/Admin/AddRoleForm';
+import AdminMain from './Component/Admin/AdminMain';
 
 const router = createBrowserRouter(
   
@@ -36,6 +39,7 @@ const router = createBrowserRouter(
       <Route path='/amountwithdraw' element={<AmountDisplay />}  />
       <Route path='/register' element={<UnprotectedRoute element={<Signup />} />} />
       <Route path='/employee' element={<ProtectedRoute element={<EmployeeItem />} />} />
+      <Route path='/admin' element={<AdminProtectedRoute element={<AdminMain />} />} />
       <Route path='/reduxemployee' element={<ProtectedRoute element={<ReduxEmployeeItem />} />} />
     </Route>
   )

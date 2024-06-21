@@ -41,15 +41,15 @@ export const editEmployee = (employee) =>({
 export const fetchEmployees = (userToken) => {
   return async (dispatch) => {
     try {
-        if (!userToken) {
-            // Handle not logged in
-            return;
-          }
-      const response = await fetch('http://localhost:4000/api/employee/', {
-        headers: {
-          'Authorization': `Bearer ${userToken}`,
-        },
-      });
+          if (!userToken) {
+              // Handle not logged in
+              return;
+            }
+        const response = await fetch('http://localhost:4000/api/employee/', {
+          headers: {
+            'Authorization': `Bearer ${userToken}`,
+          },
+        });
       if (!response.ok) {
         throw new Error('Failed to fetch employees');
       }
