@@ -25,6 +25,14 @@
         dateOfHire: {
             type: Date,
             default: Date.now
+        },
+        profilePicture:{
+            type:String,
+            required:true
+        },
+        coverPhotos:{
+            type:[String],
+            default:[]
         }
     });
 

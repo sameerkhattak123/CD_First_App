@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { todoActionCreators } from '../../Redux/index';
+import { addTodo,updateTodo,deleteTodo } from '../../Redux/Slice/todoSlice';
 import { Input, Button, Table, Typography, Modal, Select } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { fetchEmployees } from '../../Redux/Action/employeeAction'; // Updated import
+// import { fetchEmployees } from '../../Redux/Action/employeeAction';
+
 import { useAuthContext } from '../../Hook/useAuthContext';
+import { fetchEmployees } from '../../Redux/Slice/employeeSlice';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -37,7 +40,7 @@ const TodoList = () => {
             assignment: '', // Initially, no assignment
             assignmentId: '' // Initially, no assignment ID
         };
-        dispatch(todoActionCreators.addTodo(newTodo));
+        dispatch(addTodo(newTodo));
         setTitle('');
     };
 
@@ -52,7 +55,7 @@ const TodoList = () => {
 
     const handleSaveClick = () => {
         if (currentTodo) {
-            dispatch(todoActionCreators.updateTodo({
+            dispatch(updateTodo({
                 id: currentTodo.id,
                 title: newTitle,
                 date: currentTodo.date,  // Ensure the date is retained
@@ -66,7 +69,7 @@ const TodoList = () => {
     };
 
     const handleDeleteTodo = (id) => {
-        dispatch(todoActionCreators.deleteTodo(id));
+        dispatch(deleteTodo(id));
     };
 
     const uniqueAssignments = [...new Set(todos.map(todo => todo.assignment).filter(Boolean))];

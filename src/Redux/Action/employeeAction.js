@@ -63,26 +63,29 @@ export const fetchEmployees = (userToken) => {
   };
 };
 
-export const createEmployee = (employeeData,userToken) => {
+export const createEmployee = (employeeData, userToken) => {
   return async (dispatch) => {
     try {
-        if (!userToken) {
-            // Handle not logged in
-            return;
-          }
-    
+      if (!userToken) {
+        // Handle not logged in
+        return;
+      }
+
       const response = await fetch('http://localhost:4000/api/employee/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${userToken}`,
+          
         },
-        body: JSON.stringify(employeeData),
+        body: employeeData, // Assume employeeData is a FormData object
       });
+    
+
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.error);
       }
+
       dispatch(createEmployeeSuccess(data)); // Dispatch action to add new employee
     } catch (error) {
       console.error('Error creating employee:', error.message);
@@ -90,6 +93,7 @@ export const createEmployee = (employeeData,userToken) => {
     }
   };
 };
+
 
 export const deleteEmployee = (employeeId,userToken) => {
   return async (dispatch) => {
@@ -138,29 +142,34 @@ export const fetchEmployee = (employeeId,userToken) =>{
         }
     }
 }
+
 export const updateEmployee = (employeeId, updatedData, userToken) => {
-    return async (dispatch) => {
-      try {
-        if (!userToken) {
-          return;
-        }
-        const response = await fetch(`http://localhost:4000/api/employee/${employeeId}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${userToken}`,
-          },
-          body: JSON.stringify(updatedData),
-        });
-        const data = await response.json();
-        if (response.ok) {
-          dispatch(editEmployee(data));
-        } else {
-          throw new Error(data.error || 'Failed to update employee');
-        }
-      } catch (error) {
-        console.log('Error Updating Employee', error);
+  return async (dispatch) => {
+    try {
+      if (!userToken) {
+        return;
       }
-    };
+
+      
+      const response = await fetch(`http://localhost:4000/api/employee/${employeeId}`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${userToken}`,
+        },
+        body: updatedData, // Use formData instead of updatedData
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        dispatch(editEmployee(data));
+      } else {
+        throw new Error(data.error || 'Failed to update employee');
+      }
+    } catch (error) {
+      console.log('Error Updating Employee', error);
+    }
   };
+};
+
+
   
