@@ -1,0 +1,10 @@
+/* src/Bird.css */
+.bird {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8l9QyBLmfT5XbZGwaSnCmKBlYX1AAck9glQ&s');
+    background-size: cover;
+    transition: top 0.1s ease-in-out;
+  }
+  

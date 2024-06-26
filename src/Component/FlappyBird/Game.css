@@ -1,0 +1,23 @@
+/* src/Game.css */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+  }
+  
+  .game-box {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    overflow: hidden;
+    background-color: #87ceeb;
+  }
+  
+  .start-button {
+    margin-top: 20px;
+  }
+  

@@ -1,0 +1,45 @@
+.weather-app-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 24px;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .coordinates-section {
+    margin-top: 16px;
+  }
+  
+  .weather-data-section {
+    margin-top: 16px;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .weather-details {
+    display: flex;
+    align-items: center;
+  }
+  
+  .weather-info {
+    margin-right: 24px; /* Spacing between temperature and wind speed */
+  }
+  
+  .sun-icon {
+    margin-right: 16px; /* Spacing between sun icon and temperature */
+  }
+  
+  .wind-icon {
+    margin-left: 16px; /* Spacing between wind speed and wind icon */
+    display: flex;
+    align-items: center;
+  }
+  
+  .wind-icon img {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px; /* Spacing between wind icon and text */
+  }
+  

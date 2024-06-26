@@ -1,0 +1,19 @@
+/* src/Pipe.css */
+.pipe {
+    position: absolute;
+    width: 60px;
+    background-image: url('https://i.pinimg.com/736x/ab/aa/72/abaa728a0777806b4c52a373a192714b.jpg');
+    background-size: cover;
+    bottom: 0;
+    animation: pipe-move 2s linear infinite;
+  }
+  
+  @keyframes pipe-move {
+    0% {
+      left: 100%;
+    }
+    100% {
+      left: -60px;
+    }
+  }
+  
