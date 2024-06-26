@@ -26,6 +26,8 @@ import TodoItem from './Component/ToDo/TodoItem';
 import TodoList from './Component/ToDo/Todolist';
 import AddRoleForm from './Component/Admin/AddRoleForm';
 import AdminMain from './Component/Admin/AdminMain';
+import Game from './Component/FlappyBird/Game';
+import WeatherApp from './Component/Weather/WeatherApp';
 
 const router = createBrowserRouter(
   
@@ -34,6 +36,8 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<Increment />} />
       <Route path='/todolist' element={<ToDoList />}  />
+      <Route path='/game' element={<Game/>}  />
+      <Route path='/weather' element={<WeatherApp/>}  />
       <Route path='/reduxtodolist' element={<TodoList />}   />
       <Route path='/login' element={<UnprotectedRoute element={<Login />} />} />
       <Route path='/amountwithdraw' element={<AmountDisplay />}  />

@@ -32,6 +32,8 @@ function CustomNavbar() {
       <div className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ flex: 1 }}>
         <Menu.Item key="1"><Link to='/'>Home</Link></Menu.Item>
+        <Menu.Item key="8"><Link to='/game'>Game</Link></Menu.Item>
+        <Menu.Item key="9"><Link to='/weather'>Weather</Link></Menu.Item>
         <Menu.Item key="2"><Link to='/todolist'>To Do List</Link></Menu.Item>
         {user && <Menu.Item key="3"><Link to='/employee'>Employee</Link></Menu.Item>}
         <Menu.Item key="4"><Link to='/amountwithdraw'>Amount withdraw</Link></Menu.Item>
