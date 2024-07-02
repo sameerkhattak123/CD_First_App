@@ -4,7 +4,7 @@ import Pipe from './Pipe';
 import GameOver from './GameOver';
 
 const PIPE_WIDTH = 52;
-const PIPE_GAP = 200; // Adjust as necessary
+const PIPE_GAP = 200;
 
 const Game = () => {
   const [birdPosition, setBirdPosition] = useState(250);
@@ -51,11 +51,25 @@ const Game = () => {
           newPipes.push({ height: pipeHeight, left: 500, id: pipeCounterRef.current++ });
         }
 
+        // Collision detection
+        const birdTop = birdPosition;
+        const birdBottom = birdPosition + 24;
+        newPipes.forEach(pipe => {
+          const pipeLeft = pipe.left;
+          const pipeRight = pipe.left + PIPE_WIDTH;
+          const pipeTop = pipe.height;
+          const pipeBottom = pipe.height + PIPE_GAP;
+
+          if (
+            ((birdTop < pipeTop || birdBottom > pipeBottom) &&
+            (pipeLeft < 50 + 34 && pipeRight > 50))
+          ) {
+            setGameOver(true);
+          }
+        });
+
         return newPipes;
       });
-
-      // Check for collision
-      // Add your collision logic here
 
     }, 30);
 
@@ -84,3 +98,4 @@ const Game = () => {
 };
 
 export default Game;
+

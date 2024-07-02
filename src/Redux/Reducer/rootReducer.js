@@ -10,6 +10,7 @@
     import loggedInPermissionReducer from "./loggedInPermissionReducer";
     import todoSlice from "../Slice/todoSlice";
     import employeeSlice from "../Slice/employeeSlice";
+    import pdfToTextSlice from "../Slice/pdfToTextSlice";
 
     const reducers = combineReducers({
         amount: amountReducer,
@@ -21,6 +22,7 @@
         userPermissions:  userPermissionReducer,
         user : userReducer,
         loggedInPermission: loggedInPermissionReducer,
+        pdf : pdfToTextSlice
     });
 
     export default reducers;

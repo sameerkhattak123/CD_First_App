@@ -28,6 +28,7 @@ import AddRoleForm from './Component/Admin/AddRoleForm';
 import AdminMain from './Component/Admin/AdminMain';
 import Game from './Component/FlappyBird/Game';
 import WeatherApp from './Component/Weather/WeatherApp';
+import PdfUploader from './Component/PdfToText/pdfUploader';
 
 const router = createBrowserRouter(
   
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
       <Route path='/todolist' element={<ToDoList />}  />
       <Route path='/game' element={<Game/>}  />
       <Route path='/weather' element={<WeatherApp/>}  />
+      <Route path='/pdftotext' element={<PdfUploader/>}  />
       <Route path='/reduxtodolist' element={<TodoList />}   />
       <Route path='/login' element={<UnprotectedRoute element={<Login />} />} />
       <Route path='/amountwithdraw' element={<AmountDisplay />}  />

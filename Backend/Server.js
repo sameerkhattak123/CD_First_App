@@ -9,6 +9,8 @@ const roleRoute = require('./routes/role');
 const rolePermission = require('./routes/rolePermission');
 const userPermission = require('./routes/userPermission');
 const path = require('path');
+const pdfToTextRoute = require('./routes/pdfToText');
+const nlToSqlRoute = require('./routes/nlToSql');
 
 
 const app  = express()
@@ -23,7 +25,8 @@ app.use((req,res, next) => {
     console.log(req.path,req.method)
     next()
 })
-
+app.use('/api/nlToSql', nlToSqlRoute)
+app.use('/api/pdfToText', pdfToTextRoute)
 app.use('/api/user-permission',userPermission)
 app.use('/api/role-permission',rolePermission)
 app.use('/api/role',roleRoute)
